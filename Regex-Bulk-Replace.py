@@ -51,7 +51,7 @@ def add_block():
     chk_regex.pack(side=tk.LEFT, padx=5)
     
     # Checkbutton para la distinción de mayúsculas.
-    var_match_case = tk.BooleanVar(value=True)
+    var_match_case = tk.BooleanVar(value=False)
     chk_match_case = tk.Checkbutton(block_frame, text="Match case", variable=var_match_case)
     chk_match_case.pack(side=tk.LEFT, padx=5)
     
@@ -283,7 +283,9 @@ def guardar_texto_resultante():
 # INTERFAZ GRÁFICA
 # --------------------
 root = tk.Tk()
-root.title("Herramienta de Reemplazos")
+root.title("Regex Bulk Replace")
+root.geometry("860x700")
+root.minsize(860, 480)  # Establece el tamaño mínimo de la ventana
 
 root.grid_rowconfigure(6, weight=1)   # Texto Original
 root.grid_rowconfigure(8, weight=1)   # Texto Resultante
@@ -332,28 +334,50 @@ var_doble_salto = tk.BooleanVar(value=False)
 chk_doble_salto = tk.Checkbutton(root, text="Reemplazar doble salto de línea por uno solo", variable=var_doble_salto)
 chk_doble_salto.grid(row=3, column=0, columnspan=3, padx=10, pady=5, sticky="w")
 
-bottom_frame = tk.Frame(root)
-bottom_frame.grid(row=4, column=0, columnspan=3, padx=10, pady=10, sticky="ew")
-btn_abrir = tk.Button(bottom_frame, text="Abrir Config", command=abrir_config)
-btn_abrir.pack(side=tk.LEFT, padx=5, anchor="w")
-btn_reemplazar = tk.Button(bottom_frame, text="Reemplazar", command=aplicar_reemplazos)
-btn_reemplazar.pack(side=tk.RIGHT, padx=5, anchor="e")
-btn_copiar = tk.Button(bottom_frame, text="Copiar", command=copiar_texto_resultante)
-btn_copiar.pack(side=tk.RIGHT, padx=5, anchor="e")
-btn_reemplazar_y_copiar = tk.Button(bottom_frame, text="Reemplazar y Copiar", command=reemplazar_y_copiar)
-btn_reemplazar_y_copiar.pack(side=tk.RIGHT, padx=5, anchor="e")
-btn_guardar = tk.Button(bottom_frame, text="Guardar Config", command=guardar_config)
+
+# Area de botones
+
+
+
+
+
+# Area de botones
+frame_botonera = tk.Frame(root)
+frame_botonera.grid(row=4, column=0, columnspan=3, padx=10, pady=10, sticky="w")
+
+# Botones iniciales alineados a la izquierda
+btn_abrir = tk.Button(frame_botonera, text="Abrir Config", command=abrir_config)
+btn_abrir.pack(side=tk.LEFT, padx=5)
+btn_guardar = tk.Button(frame_botonera, text="Guardar Config", command=guardar_config)
 btn_guardar.pack(side=tk.LEFT, padx=5)
+
+# Espacio largo (usando un frame vacío)
+espacio = tk.Frame(frame_botonera, width=360)  # Ajusta el ancho según necesites
+espacio.pack(side=tk.LEFT)
+
+# Botones restantes alineados a la izquierda después del espacio
+btn_reemplazar = tk.Button(frame_botonera, text="Reemplazar", command=aplicar_reemplazos)
+btn_reemplazar.pack(side=tk.LEFT, padx=5)
+btn_copiar = tk.Button(frame_botonera, text="Copiar", command=copiar_texto_resultante)
+btn_copiar.pack(side=tk.LEFT, padx=5)
+btn_reemplazar_y_copiar = tk.Button(frame_botonera, text="Reemplazar y Copiar", command=reemplazar_y_copiar)
+btn_reemplazar_y_copiar.pack(side=tk.LEFT, padx=5)
+
+
+
+
+
 
 # --- Barra de Estado ---
 status_bar = tk.Label(root, text="Bloques: 0 | Resultados Normales: 0 | Resultados de Exp Regulares: 0", bd=1, relief=tk.SUNKEN, anchor=tk.W)
-status_bar.grid(row=9, column=0, columnspan=3, sticky="we", padx=10, pady=(0,5))
+status_bar.grid(row=10, column=0, columnspan=3, padx=10, pady=5, sticky="ew")
 
 # --- Área de Texto Original ---
 frame_texto_original = tk.Frame(root)
 frame_texto_original.grid(row=5, column=0, columnspan=2, padx=10, pady=5, sticky="w")
 etiqueta_entrada = tk.Label(frame_texto_original, text="Texto Original")
 etiqueta_entrada.pack(side=tk.LEFT)
+
 # Botón para abrir archivo (entre el label y "Borrar")
 btn_abrir_archivo = tk.Button(frame_texto_original, text="Abrir Archivo", command=abrir_archivo)
 btn_abrir_archivo.pack(side=tk.LEFT, padx=10)
@@ -363,17 +387,28 @@ btn_limpiar.pack(side=tk.LEFT, padx=10)
 texto_entrada = scrolledtext.ScrolledText(root, height=15, width=80)
 texto_entrada.grid(row=6, column=0, columnspan=3, padx=10, pady=5, sticky="nsew")
 
-# --- Área de Texto Resultante ---
-etiqueta_salida = tk.Label(root, text="Texto Resultante")
-etiqueta_salida.grid(row=7, column=0, padx=10, pady=5, sticky="w")
-# Botón para guardar el texto resultante (al lado del label)
-btn_guardar_resultado = tk.Button(root, text="Guardar Resultado", command=guardar_texto_resultante)
-btn_guardar_resultado.grid(row=7, column=1, padx=10, pady=5, sticky="w")
 
+
+
+
+# --- Contenedor para la etiqueta y el botón ---
+frame_resultado = tk.Frame(root)
+frame_resultado.grid(row=7, column=0, padx=10, pady=5, sticky="w")
+
+# Etiqueta "Texto Resultante"
+etiqueta_salida = tk.Label(frame_resultado, text="Texto Resultante")
+etiqueta_salida.pack(side=tk.LEFT, padx=(0, 10))  # Espacio a la derecha
+
+# Botón "Guardar Resultado" justo al lado
+btn_guardar_resultado = tk.Button(frame_resultado, text="Guardar Resultado", command=guardar_texto_resultante)
+btn_guardar_resultado.pack(side=tk.LEFT)
+
+# --- Área de Texto Resultante ---
 texto_salida = scrolledtext.ScrolledText(root, height=15, width=80, state=tk.DISABLED)
 texto_salida.grid(row=8, column=0, columnspan=3, padx=10, pady=5, sticky="nsew")
 
-root.geometry("860x700")  # Establece el tamaño antes de agregar los bloques
+
+
 
 # --- Crear 4 bloques por defecto ---
 for i in range(4):
