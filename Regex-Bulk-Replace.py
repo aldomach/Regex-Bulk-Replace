@@ -285,7 +285,7 @@ def guardar_texto_resultante():
 root = tk.Tk()
 root.title("Regex Bulk Replace")
 root.geometry("860x700")
-root.minsize(860, 700)  # Establece el tamaño mínimo de la ventana
+root.minsize(860, 480)  # Establece el tamaño mínimo de la ventana
 
 root.grid_rowconfigure(6, weight=1)   # Texto Original
 root.grid_rowconfigure(8, weight=1)   # Texto Resultante
