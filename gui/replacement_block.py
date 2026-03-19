@@ -1,12 +1,9 @@
 import tkinter as tk
 
 class ReplacementBlock(tk.Frame):
-    """
-    Clase que representa un bloque de reemplazo individual.
-    Encapsula los widgets y variables de configuración.
-    """
     def __init__(self, parent, block_index, on_remove_callback, on_move_up=None, on_move_down=None):
-        super().__init__(parent)
+        # Mejora estética: Fondo blanco y borde plano para cada bloque
+        super().__init__(parent, bd=1, relief=tk.SOLID, padx=5, pady=8, bg="#ffffff")
         self.block_index = block_index
         self.on_remove_callback = on_remove_callback
         self.on_move_up = on_move_up
@@ -21,7 +18,7 @@ class ReplacementBlock(tk.Frame):
         
     def setup_ui(self):
         # Número de bloque
-        self.lbl_index = tk.Label(self, text=f"#{self.block_index}", width=3)
+        self.lbl_index = tk.Label(self, text=f"#{self.block_index}", width=3, bg="white")
         self.lbl_index.pack(side=tk.LEFT, padx=5)
         
         # Botones de orden
@@ -43,20 +40,21 @@ class ReplacementBlock(tk.Frame):
         self.entry_replacement.pack(side=tk.LEFT, padx=5)
         
         # Checkbox Regex
-        self.chk_regex = tk.Checkbutton(self, text="Regex", variable=self.var_regex, command=self.toggle_regex)
+        self.chk_regex = tk.Checkbutton(self, text="Regex", variable=self.var_regex, command=self.toggle_regex, bg="white", activebackground="white")
         self.chk_regex.pack(side=tk.LEFT, padx=5)
         
         # Checkbox Match case
-        self.chk_match_case = tk.Checkbutton(self, text="Match case", variable=self.var_match_case)
+        self.chk_match_case = tk.Checkbutton(self, text="Match case", variable=self.var_match_case, bg="white", activebackground="white")
         self.chk_match_case.pack(side=tk.LEFT, padx=5)
         
         # Checkbox Palabra completa
-        self.chk_whole = tk.Checkbutton(self, text="Palabra completa", variable=self.var_whole)
+        self.chk_whole = tk.Checkbutton(self, text="Palabra completa", variable=self.var_whole, bg="white", activebackground="white")
         self.chk_whole.pack(side=tk.LEFT, padx=5)
         
-        # Botón eliminar
-        self.btn_remove = tk.Button(self, text="Eliminar", command=lambda: self.on_remove_callback(self))
-        self.btn_remove.pack(side=tk.LEFT, padx=5)
+        # Mejora estética: Botón eliminar con color distinto
+        self.btn_remove = tk.Button(self, text="Eliminar", command=lambda: self.on_remove_callback(self),
+                                   fg="white", bg="#d9534f", activebackground="#c9302c")
+        self.btn_remove.pack(side=tk.LEFT, padx=10)
         
         # Asegurarse de que el estado inicial de chk_whole sea consistente
         self.toggle_regex()

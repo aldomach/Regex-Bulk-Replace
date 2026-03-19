@@ -44,7 +44,7 @@ class MainWindow:
         
         self.blocks_canvas.configure(yscrollcommand=self.blocks_scrollbar.set)
         
-        self.blocks_container_inner = tk.Frame(self.blocks_canvas)
+        self.blocks_container_inner = tk.Frame(self.blocks_canvas, bg="#f4f4f4")
         self.blocks_canvas.create_window((0, 0), window=self.blocks_container_inner, anchor="nw")
         
         self.blocks_container_inner.bind("<Configure>", 
@@ -117,7 +117,8 @@ class MainWindow:
         block = ReplacementBlock(self.blocks_container_inner, idx, self.remove_block, 
                                  on_move_up=lambda: self.move_block_up(block),
                                  on_move_down=lambda: self.move_block_down(block))
-        block.pack(fill=tk.X, pady=2)
+        # Mejora estética: Más separación vertical
+        block.pack(fill=tk.X, pady=6, padx=5)
         if data:
             block.set_data(data)
         self.blocks_list.append(block)
@@ -140,7 +141,7 @@ class MainWindow:
             block.btn_down.config(state=tk.NORMAL if i < total else tk.DISABLED)
             
             block.pack_forget()
-            block.pack(fill=tk.X, pady=2)
+            block.pack(fill=tk.X, pady=6, padx=5)
             
     def move_block_up(self, block):
         idx = self.blocks_list.index(block)
