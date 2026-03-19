@@ -1,10 +1,10 @@
 import tkinter as tk
 
 class ReplacementBlock(tk.Frame):
-    \"\"\"
+    """
     Clase que representa un bloque de reemplazo individual.
     Encapsula los widgets y variables de configuración.
-    \"\"\"
+    """
     def __init__(self, parent, block_index, on_remove_callback, on_move_up=None, on_move_down=None):
         super().__init__(parent)
         self.block_index = block_index
@@ -21,13 +21,13 @@ class ReplacementBlock(tk.Frame):
         
     def setup_ui(self):
         # Número de bloque
-        self.lbl_index = tk.Label(self, text=f\"#{self.block_index}\", width=3)
+        self.lbl_index = tk.Label(self, text=f"#{self.block_index}", width=3)
         self.lbl_index.pack(side=tk.LEFT, padx=5)
         
         # Botones de orden
-        self.btn_up = tk.Button(self, text=\"\u25b2\", command=self.on_move_up)
+        self.btn_up = tk.Button(self, text="\u25b2", command=self.on_move_up)
         self.btn_up.pack(side=tk.LEFT, padx=1)
-        self.btn_down = tk.Button(self, text=\"\u25bc\", command=self.on_move_down)
+        self.btn_down = tk.Button(self, text="\u25bc", command=self.on_move_down)
         self.btn_down.pack(side=tk.LEFT, padx=1)
         
         # Campo patrón
@@ -35,7 +35,7 @@ class ReplacementBlock(tk.Frame):
         self.entry_pattern.pack(side=tk.LEFT, padx=5)
         
         # Botón invertir
-        self.btn_invert = tk.Button(self, text=\"\u21c4 Invertir\", command=self.invert_texts)
+        self.btn_invert = tk.Button(self, text="\u21c4 Invertir", command=self.invert_texts)
         self.btn_invert.pack(side=tk.LEFT, padx=2)
         
         # Campo reemplazo
@@ -43,19 +43,19 @@ class ReplacementBlock(tk.Frame):
         self.entry_replacement.pack(side=tk.LEFT, padx=5)
         
         # Checkbox Regex
-        self.chk_regex = tk.Checkbutton(self, text=\"Regex\", variable=self.var_regex, command=self.toggle_regex)
+        self.chk_regex = tk.Checkbutton(self, text="Regex", variable=self.var_regex, command=self.toggle_regex)
         self.chk_regex.pack(side=tk.LEFT, padx=5)
         
         # Checkbox Match case
-        self.chk_match_case = tk.Checkbutton(self, text=\"Match case\", variable=self.var_match_case)
+        self.chk_match_case = tk.Checkbutton(self, text="Match case", variable=self.var_match_case)
         self.chk_match_case.pack(side=tk.LEFT, padx=5)
         
         # Checkbox Palabra completa
-        self.chk_whole = tk.Checkbutton(self, text=\"Palabra completa\", variable=self.var_whole)
+        self.chk_whole = tk.Checkbutton(self, text="Palabra completa", variable=self.var_whole)
         self.chk_whole.pack(side=tk.LEFT, padx=5)
         
         # Botón eliminar
-        self.btn_remove = tk.Button(self, text=\"Eliminar\", command=lambda: self.on_remove_callback(self))
+        self.btn_remove = tk.Button(self, text="Eliminar", command=lambda: self.on_remove_callback(self))
         self.btn_remove.pack(side=tk.LEFT, padx=5)
         
         # Asegurarse de que el estado inicial de chk_whole sea consistente
@@ -70,7 +70,7 @@ class ReplacementBlock(tk.Frame):
         self.entry_replacement.insert(0, pat)
         
     def toggle_regex(self):
-        \"\"\"Deshabilita 'Palabra completa' cuando el modo regex está activo.\"\"\"
+        """Deshabilita 'Palabra completa' cuando el modo regex está activo."""
         if self.var_regex.get():
             self.chk_whole.config(state=tk.DISABLED)
             # visualmente se mantiene el valor pero se ignora en la lógica
@@ -78,12 +78,9 @@ class ReplacementBlock(tk.Frame):
             self.chk_whole.config(state=tk.NORMAL)
             
     def set_error_visual(self, is_error=True):
-        \"\"\"Marca con borde rojo las entradas de texto en caso de error.\"\"\"
-        if is_error:
-            self.entry_pattern.config(highlightbackground=\"red\", highlightcolor=\"red\", highlightthickness=1)
-            # También podrías cambiar el fondo: self.entry_pattern.config(bg=\"#fdd\")
-        else:
-            self.entry_pattern.config(highlightbackground=\"#ddd\", highlightcolor=\"#ddd\", highlightthickness=0)
+        """Marca con color de fondo las entradas de texto en caso de error."""
+        color = "#fdd" if is_error else "white"
+        self.entry_pattern.config(bg=color)
             
     def get_data(self):
         return {
@@ -106,4 +103,4 @@ class ReplacementBlock(tk.Frame):
         
     def update_index(self, new_index):
         self.block_index = new_index
-        self.lbl_index.config(text=f\"#{self.block_index}\")
+        self.lbl_index.config(text=f"#{self.block_index}")

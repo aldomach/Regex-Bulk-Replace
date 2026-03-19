@@ -1,7 +1,7 @@
 import re
 
 def apply_replacements(text, blocks, remove_double_newlines=False):
-    \"\"\"
+    """
     Aplica todos los reemplazamientos al texto dado.
     
     :param text: El texto original
@@ -14,7 +14,7 @@ def apply_replacements(text, blocks, remove_double_newlines=False):
     :param remove_double_newlines: bool
     :return: (new_text, normal_count, regex_count, errors)
         - errors: lista de tuplas (idx, error_msg)
-    \"\"\"
+    """
     normal_count = 0
     regex_count = 0
     errors = []
