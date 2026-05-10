@@ -1,17 +1,24 @@
-import tkinter as tk
-from gui.main_window import MainWindow
+"""
+main.py  —  Regex Bulk Replace (PySide6)
+Uso: python main.py
+"""
+
+import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from PySide6.QtWidgets import QApplication
+from ui.main_window import MainWindow
+
 
 def main():
-    root = tk.Tk()
-    app = MainWindow(root)
-    
-    # Iniciar con geometry antes de agregar bloques para evitar parpadeo
-    root.geometry("1000x800")
-    
-    # Iniciar con 4 bloques por defecto
-    for _ in range(4):
-        app.add_block()
-    root.mainloop()
+    app = QApplication(sys.argv)
+    app.setApplicationName("Regex Bulk Replace")
+    app.setStyle("Fusion")
+    win = MainWindow()
+    win.show()
+    sys.exit(app.exec())
+
 
 if __name__ == "__main__":
     main()
